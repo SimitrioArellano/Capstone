@@ -7,7 +7,7 @@
 #define D 'D'
 
 int i; //counter
-int j; //another counter
+int j; //another counter.
 int n; //switch variable
 
 char testFunc ();
