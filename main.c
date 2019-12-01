@@ -6,7 +6,7 @@
 #define C 'C'
 #define D 'D'
 
-int i; //counter
+int i; //counter.
 int j; //another counter.
 int n; //switch variable
 
