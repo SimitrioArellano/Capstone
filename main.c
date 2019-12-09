@@ -1,4 +1,4 @@
-//First actual version of main to pull..
+//First actual Secong
 #include <stdio.h>
 #include <string.h>
 #define A1 'A'
