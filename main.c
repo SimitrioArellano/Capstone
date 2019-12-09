@@ -36,19 +36,115 @@ char res6BAABD();
 char res7BAABDB();
 char res8BAABDBC();
 
-int main(void){
+//Declaring array for days in each month
+const int mdays[12]={31,28,31,30,31,30,31,31,30,31,30,31};
+
+//Declaring date structure
+struct date
+{
+  int month;
+  int day;
+  int year;
+};
+struct date d1, d2;
+
+int daydiff();
+
+void driveTest();
+
+int daydiff(){
+
+  //Get user info
+  printf("\nPlease enter today's date in the format MM DD YYYY:");
+  scanf("%d %d %d", &(d1.month), &(d1.day), &(d1.year));
+  printf("\nNote: The state requires a 6 month (183 days) waiting period between the permit and driving test\n");
+  printf("\nPlease enter the day you wish to take your driving portion of the test:");
+  scanf(" %d %d %d", &(d2.month), &(d2.day), &(d2.year));
+
+  // Declare variables to keep count of total number of leap years to date;
+  int leap1=0;
+  int leap2=0;
+
+  // Define variables as values from the struct
+  int years1 = d1.year;
+  int years2 = d2.year;
+
+  // Declare variable to keep track of total days leading to the first date entered                      //Initial declaration includes years + days from current month
+  int tdays1 = ((d1.year)*365) + (d1.day);
+
+  //Adds the total amount of days from each previous month within the year
+  for (int i=0; i<(d1.month-1);i++)
+    tdays1 += mdays[i];
+
+  //Checks to see if current year must be considered in the leap year count
+  if (d1.month<=2)
+    {
+      years1--;
+    }
+
+  //Finds the total # of leap years from 0000 to said year
+  leap1= (years1/4)-(years1/100)+(years1/400);
+
+  //Adds total # leap years to total count
+  tdays1 += leap1;
+  int tdays2 = ((d2.year)*365)+ (d2.day);
+
+  //Adds the total amount of days from each previous month within the year
+  for (int j=0; j<(d2.month-1); j++)
+    tdays2 += mdays[j];
+
+  //Checks to see if year entered should be considered in the leap year count
+  if (d2.month<=2)
+    {
+      years2--;
+    }
+
+  //Finds the total # of leap years from 0000 to said year
+  leap2 = (years2/4)-(years2/100)+(years2/400);
+
+  //Adds # days from leap year count to total days
+  tdays2 += leap2;
+
+  return(tdays2-tdays1);
+}
+
+
+int main()
+{
+  //Declare a variable to hold the value of the difference
+  int days=daydiff();
+
+  //Loop to ensure user has waited 183 days
+  while (days<183){
+	printf("Sorry, the day you have selected is within the 6 month waiting period\n");
+	printf("Please try again\n");
+	days=daydiff();
+      }
+
+    //Allow user to continue through the program
+    printf("This date is after the 183 day waiting period");
+    printf("\nWe'll see you then!\n");
+
+    testFunc();
+
+    
+    return(0);
+}
+
+
+/*void driveTest(){
 
   testFunc();
   
   return(0); //main return
 } //main
-
+*/
 
 char testFunc(){
   char res1;
   char res3;
   
-  printf("\tYou are now about to take the Driver's Test.\n\tA Driving Instructer will give you commands and a narrator will explain\n\tthe situation based off the decisions you make.\n\tGood Luck\n\n\n");
+  printf("\tIt is now %d-%d-%d\n\nYou are now about to take the Driver's Test.\n\tA Driving Instructer will give you commands and a narrator will explain\n\tthe situation based off the decisions you make.\n\tGood Luck\n\n\n",d2.month,d2.day,d2.year);
 
   if (i==0){
     printf("*It is raining outside.*\n*A large man with a polka dot umbrella comes out of the DMV*\n*He passes right by you and walks toward a black Chevy Impala*\nDriving Instructure: \"Let's go\"\n*You both get into the car.*\n*There is an awkward pause...*\n\n");
@@ -251,6 +347,7 @@ char res3AD(){
     printf("*You turn right*\n\n");
     printf("*You make a successful right turn and drive down the street*\n*Down the street you see a McDonald's sign and you hear the Driving Instructor's stomach rumbles*\n\n");
     res4ADC();
+    break;
   case D1:
     printf("*You turn left*\n\n");
     printf("*Soon after you turn left, you realize you are on the wrong side of a one-way street*\n*You swerve widely to avoid the oncoming traffic and hit a fire hydrant*\n*Water is everywhere*\n*You have failed your test*\n*You can retake yourtest in 6 months*\n\n");
@@ -361,15 +458,15 @@ char res4ADC(){
     printf("*You get to the McDonald's drive-thru window*\nDriving Instructor: \"What do you think you are doing? Get out of here!\"\nMcDonald's Employee: \"One ten piece McChicken meal. That'll be $7.46\nPlease pay at the next window\"\n*You realize you cannot leave without paying*\n*You pull ahead to the next window*\nMcDonald's Employee 2: \"$7.46 please\"\n*You reach for your wallet and realize you left it at home*\n*A long awkward pause follows and cars behind honk*\n*You have to ask the Driving Instructor for money*\nDriving Instructor: \"Get out of the car\"\n*You get out of the car and drives away leaving you at the McDonald's window*\n*You have failed your test*\n*You can retake your test in 6 weeks*\n\n");
     break;
   case B1:
-    printf("*You go straight");
+    printf("*You go straight*\n\n");
     printf("*As you drive straight a car quickly pulls out of the drive-thru and nearly hits you*\n*You have failed your test*\n*You can retake your test in 6 weeks*\n\n");
     break;
   case C1:
-    printf("*Make a U-turn*");
+    printf("*Make a U-turn*\n\n");
     printf("*Half-way through your U-turn you see an NO U-TURN sign*\n*You have failed your test*\n*You can retake your test in 6 weeks*\n\n");
     break;
   case D1:
-    printf("*You ask the Driving Instructor where to go*");
+    printf("*You ask the Driving Instructor where to go*\n\n");
     printf("*You turn your head to ask the Driving Instructor where to go*\n*As you face the Driving Instructor you accidentally sneeze into his open mouth*\n\n");
     res5ADCD();
   default:
@@ -387,13 +484,13 @@ char res4BAA(){
 
   switch (res2>='a' && res2<= 'z' ? res2-32 : res2) {
   case A1:
-    printf("*You open the door and tuck and roll*");
+    printf("*You open the door and tuck and roll*\n\n");
     printf("*You roll out of the moving car and onto the pavement*\n*The police immediatly surround you*\n*You are detetained and sentenced to 5 years in state Juvenile detention*\n\n");
     return(0);
     break;   
   case B1:
-    printf("*You take a right*");
-    printf("*You drive onto the freeway*\n*Police vehicles are right on your tail*\nDriving Instructor: \"LOSE THEM!\"");
+    printf("*You take a right*\n\n");
+    printf("*You drive onto the freeway*\n*Police vehicles are right on your tail*\nDriving Instructor: \"LOSE THEM!\"\n\n");
     res5BAAB();
     break;
   case C1:
@@ -402,7 +499,7 @@ char res4BAA(){
     return(0);
     break;
   case D1:
-    printf("*You take a left*\n");
+    printf("*You take a left*\n\n");
     printf("*As you turn you realize that you are now on a one way street*\n*You skid to avoid the traffic and go into the ditch*\n*The police immediatly surround you*\n*You are detetained and sentenced to 5 years in state Juvenile detention*\n\n");
     return(0);
     break;
@@ -419,29 +516,26 @@ char res5ADCD(){
 
   switch (res2>='a' && res2<= 'z' ? res2-32 : res2) {
   case A1:
-    printf("*You reach for a napkin in the glove compartment*");
+    printf("*You reach for a napkin in the glove compartment*\n\n");
     printf("*You reach over the lap of the Driving Instructor and pull on the glove compartment handle*\n*The glove compartment is locked*\n*Your grip on the wheel slips and you nearly hit a child on the sidewalk*\n*You have failed your test*\n*You can retake your test in 6 weeks*\n\n");
     break;
   case B1:
-    printf("*You pretend nothing happened*");
+    printf("*You pretend nothing happened*\n\n");
     printf("*You continue driving down the road*\n*The road loops back around toward the DMV*\n*You realize you need to impress him to pass the test*\n*There are two open spaces*\nOne is in between two cars*\n*The other is a wide open spot*\n\n");
     res6ADCDB();
     break;
   case C1:
-    printf("*You say a joke*");
+    printf("*You say a joke*\n\n");
     printf("You: \"Well...I guess it's still raining\"\nDriving Instructor: \"Get out of the car\"\n*You have failed your test*\n*You can retake your test in 6 weeks*\n\n");
     break;
   case D1:
-    printf("*You apologize*");
+    printf("*You apologize*\n\n");
     printf("*You turn your head to apologize*\n*You loose sight of the road for one moment when a biker rolls out in front of you*\n*You nearly hit the biker*\n*You have failed your test*\n*You can retake your test in 6 weeks*\n\n");
     break;
   default:
     printf("\nPlease enter one of the specified commands\n\n");
   }//res5ADCD switch
 }//res5ADCD
-
-
-
     
 char res5ACCC(){
   char res2;
@@ -486,7 +580,7 @@ char res5BAAB(){
     return(0);
     break;
   case B1:
-    printf("*You pull over*");
+    printf("*You pull over*\n\n");
     printf("*You slowly put the car into the shoulder of the road*\nDriving Instructor: \"WHAT ARE YOU DOING!?\"\n*The Driving Instructor smacks you in the head*\n*You black out*\n*Three days later you wake up in a Juvenile detention center*\n\n");
     return(0);
     break;
@@ -525,7 +619,7 @@ char res6ACCCD(){
     printf("*You grab the blinker handle and pull down*\n*You pull down a little to hard*\n*The handle snaps off the wheel*\n*You pull forward into the wide open parking spot*\nDriving Instructor: \"Congratulations you passed your test\nYou made 3 mistakes for not parallel parking\nHowever you must pay $280 for breaking the blinker handle\"\n*Congratulations you have passed your test*\n\n");
     break;
   case D1:
-    printf("*You park in the open spot with no cars*");
+    printf("*You park in the open spot with no cars*\n\n");
     printf("*You easily pull forward into the open spot, but do not parallel park*\nDriving Instructor: \"Congratulations you passed your test\nYou made 3 mistakes for not parallel parking.\"\n*Congratulations you have passed your test*\n\n");
     break;
   default:
@@ -541,19 +635,19 @@ char res6ADCDB(){
 
   switch (res2>='a' && res2<= 'z' ? res2-32 : res2) {
   case A1:
-    printf("*You refuse to park & ask for another try*");
+    printf("*You refuse to park & ask for another try*\n\n");
     printf("Driving Instructor: \"No. Get out of the car\"\n*You have failed your test*\n*You can retake your test in 6 weeks*\n\n");
     break;
   case B1:
-    printf("*You pull forward into the spot*");
+    printf("*You pull forward into the spot*\n\n");
     printf("*You turn the car off*\n*The Driving Instructor writes on his clipboard*\nDriving Instructor:\"Congratulations you passed your test\nYou lost 3 points for turning the radio on and sneezing in my mouth.\"\n*Congratulations you have passed your test*\n\n");
     break;
   case C1:
-    printf("*You back into the spot*");
+    printf("*You back into the spot*\n\n");
     printf("*You back up and hit the curb and turn the car off*\n*The Driving Instructor writes on his clipboard*\nDriving Instructor:\"Congratulations you passed your test\nYou lost 4 points for turning the radio on, sneezing in my mouth, and hitting the curb.\"\n*Congratulations you have passed your test*\n\n");
     break;
   case D1:
-    printf("*You parallel park*");
+    printf("*You parallel park*\n\n");
     printf("*You back into between the two cars and hit the headlight of the parked car*\nDriving Instructor: \"You just hit my car\"\n*You turn the car off*\n*The Driving Instructor writes on his clipboard*\nDriving Instructor: \"You have failed the test\nYou lost 5 points for\nTurning on the radio\nSneezing in my mouth\nAnd hitting my car\"\n*You have failed your test*\n*You can retake your test in 6 weeks*\n\n");
     break;
   default:
@@ -570,17 +664,17 @@ char res6BAABD(){
 
   switch (res2>='a' && res2<= 'z' ? res2-32 : res2) {
   case A1:
-    printf("*You tuck and roll*");
+    printf("*You tuck and roll*\n\n");
     printf("*You open the car door, tuck, and roll out*\n*The car is going to fast*\n*When you hit the pavement you immediatly pass out*\n*You wake up 5 months later in a Juvenile detention center*\n\n");
     return(0);
     break;
   case B1:
-    printf("*You speed up*");
+    printf("*You speed up*\n\n");
     printf("*The open bridge approaches faster and faster*\nDriving Instructor: \"Are you in? Or are you out?\"\n\n");
     res7BAABDB();
     break;
   case C1:
-    printf("*You make a U-turn*");
+    printf("*You make a U-turn*\n\n");
     printf("*You begin to turn the wheel to U-turn left*\n*The car is going too fast*\n*The car rolls three times before landing upside down*\nYou wake up 7 months later in a Juvenile detention center*\n\n");
     return(0);
     break;
@@ -602,22 +696,22 @@ char res7BAABDB(){
 
   switch (res2>='a' && res2<= 'z' ? res2-32 : res2) {
   case A1:
-    printf("*You remain silent*");
+    printf("*You remain silent*\n\n");
     printf("*The Driving Instructor opens your door and pushes you out of the car*\n*The police immediatly surround you*\n*You are detetained and sentenced to 5 years in state Juvenile detention*\n\n");
     return(0);
     break;
   case B1:
-    printf("*You say out*");
+    printf("*You say out*\n\n");
     printf("*The Driving Instructor opens your door and pushes you out of the car*\n*The police immediatly surround you*\n*You are detetained and sentenced to 5 years in state Juvenile detention*\n\n");
     return(0);
     break;
   case C1:
-    printf("*You say you are in*");
+    printf("*You say you are in*\n\n");
     printf("Driving Instructor: \"That's my guy!\nOkay when the car makes it over the bridge jump out of the car!\"\n*The car speeds up and over the bridge*\n*The car goes airborne over the Chicago river*\nTime freezes while you are flying in the car*\n\n");
     res8BAABDBC();
     break;
   case D1:
-    printf("*You pretend you didn't hear him*");
+    printf("*You pretend you didn't hear him*\n\n");
     printf("*The Driving Instructor opens your door and pushes you out of the car*\n*The police immediatly surround you*\n*You are detetained and sentenced to 5 years in state Juvenile detention*\n\n");
     return(0);
     break;
