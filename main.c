@@ -1,6 +1,7 @@
 //First actual Secong
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #define A1 'A'
 #define B1 'B'
 #define C1 'C'
@@ -14,6 +15,7 @@
 int i; //counter.
 int j; //another counter.
 int n; //switch variable
+int permittestPass=0;
 
 char testFunc ();
 char res2A();
@@ -35,6 +37,21 @@ char res6ADCDB();
 char res6BAABD();
 char res7BAABDB();
 char res8BAABDBC();
+
+typedef struct{
+  int day;
+  int month;
+  int year;
+}permitDate;
+
+typedef struct{
+  int day;
+  int month;
+  int year;
+}age;
+
+int permitTest();
+
 
 //Declaring array for days in each month
 const int mdays[12]={31,28,31,30,31,30,31,31,30,31,30,31};
@@ -124,7 +141,7 @@ int main()
     //Allow user to continue through the program
     printf("This date is after the 183 day waiting period");
     printf("\nWe'll see you then!\n");
-
+    permitTest();
     testFunc();
 
     
@@ -741,3 +758,117 @@ char res8BAABDBC(){
   }//res8BAABDC switch
 }//res8BAABDC
     
+int permitTest(){
+  char one,two,three,four,five,six,seven,eight,nine,ten;
+  permitDate d;
+  age a;
+  int counter = 0;
+  int driversTest = 0;
+
+
+  printf("Permit Test\n\n\n");
+  printf("*You arrive at the DMV with your Mother to take your permit test.*\n\n*You grab the Permit Test form and begin to fill it out.*\n\n");
+
+  printf("Please Enter today's date (MM/DD/YYYY)\n");
+  scanf("%d%d%d", &d.month, &d.day, &d.year);
+  //printf("%d/%d/%d", d.month, d.day, d.year);
+
+  printf("\n\nPlease Enter your Date of Birth (MM/DD/YYYY)\n");
+  scanf("%d%d%d", &a.month, &a.day, &a.year);
+  //printf("%d/%d/%d", a.month, a.day, a.year);
+
+  if((a.month*30.4166) + (a.day) + (d.year - a.year)*365 >= 5657.5){ //Checking to see if the test taker is at least 15.5 (5657.5 days) old
+    printf("You may take the permit test\n\n");
+    printf("*You turn in your paperwork to the only DMV employee working today.\nYou find it little odd that there is only one worker at the DMV today.\nHe looks it over carefully, and then places it in in a file folder.\nHe tells you to go to computer terminal C to take your test.\n\n");
+    printf("\n\nYou sit down at the terminal and begin the test\n\n");
+
+  }
+  else{
+    printf("You are not old enough to take the permit test. Come back when you are at least 15.5 years old");
+    exit(0);
+  }
+
+  printf("\n\n\nYou are taking the California State Driver's Permit Test.\n\nThis test will be 10 questions long.\nYou must answer 80%% of the questions correctly to pass.\n\n");
+
+  printf("1)  In which of the following scenarios should your car wheels not be pointed straight ahead?\n\na)  When waiting to make a left turn at a traffic light\nb)  When parked on a hill or sloping driveway\nc)  when parked on the side of a level roadway where there is no curb\n");
+  scanf(" %c", &one);
+
+  if(one == 'b'){
+    counter++;
+  }
+
+  printf("\n\n\n2)  You should increase the distance between your vehicle and the vehicle ahead when you:\n\na)  Are following a small passenger vehicle\nb)  Are being tailgated by another driver\nc)  Are driving more slowly than the posted speed limit\n\n\n");
+  scanf(" %c", &two);
+
+  if(two == 'b'){
+    counter++;
+  }
+
+  printf("3)  When Driving under snowy or icy conditions:\n\na)  It is safe to use cruise control\nb)  Make speed and directional changes more gradually than you would otherwise\nc)  Driver as you would under normal conditions\n\n\n");
+  scanf(" %c", &three);
+
+  if(three == 'b'){
+    counter++;
+  }
+
+  printf("4)  When being followed by a tailgater, which of the following will is the best course of action to take?\n\na)  Scare the driver behind you by slamming the breaks\nb)  Speed away from the tailgater\nc)  Merge into another lane\n\n\n");
+  scanf(" %c", &four);
+
+  if(four == 'c'){
+    counter++;
+  }
+
+  printf("5)  A broken yellow centerline means\n\na)  Passing on the left is permitted when the way ahead is clear\nb)  Passing is not permitted\nc)  Passing is permitted if the car in front of you signals you to pass them\n\n\n");
+  scanf(" %c", &five);
+
+  if(five == 'a'){
+    counter++;
+  }
+
+  printf("6)  If a bicycle on your right reaches an intersection at the same time as you do, you should:\n\na)  Yield to the bicycle\nb)  move slowly along with the bicycle\nc)  Move because you have the right of way\n\n\n");
+  scanf(" %c", &six);
+
+  if(six == 'a'){
+    counter++;
+  }
+  printf("7)  Four cars are at a 4-way intersection, an ambulance, a firetruck, a squad car, and a funeral procession, which one has the right of way?\n\na)  The funeral procession\nb)  The squad car\nc)  The Fire Truck\nd)  The ambulance\n\n\n");
+  scanf(" %c", &seven);
+
+  if(seven == 'c'){
+    counter++;
+  }
+
+  printf("8)  You should use _____ steering when correcting a skid\n\na)  hand-over-hand\nb)  one-hand\nc)  10 & 2 steering\n\n\n");
+  scanf(" %c", &eight);
+
+  if(eight == 'a'){
+    counter++;
+  }
+
+  printf("9)  A driver in front of you is signaling with their hand and arm pointing upward, this driver wants to...\n\na)  Stop\nb)  Turn Right\nc)  Turn Left\n\n\n");
+  scanf(" %c", &nine);
+
+  if(nine == 'b'){
+    counter++;
+  }
+
+  printf("10)  When driving in fog, rain, or snow, use:\n\na)  Low Beams\nb)  High Beams\nc)  Fog Lights only\n\n\n");
+  scanf(" %c", &ten);
+
+  if(ten == 'a'){
+    counter++;
+  }
+
+  if(counter >= 8){
+    printf("Congradulations!\nYou have passed your permit test. Come back in 6 months to get your drivers test");
+    permittestPass++;
+  }
+  else{
+    printf("You have failed your driver's test. What the heck man.");
+    printf("\n\n\nYou turn around disappointed. You meet the DMV employee's eyes.\n\nA single tear rolls down your cold cheek.\n\nThe DMV employee stares back, unable to feel sympathy.\n\nThe life sucking blackhole that is his goverment has reduced him into a cold, calcualting, unfeeling machine.\n\nHe looks you and says 'Come back in 6 weeks.'");
+    permittestPass =1;
+    exit(0);
+  }
+
+  return(0);
+}
